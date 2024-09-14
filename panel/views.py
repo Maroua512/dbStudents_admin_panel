@@ -113,7 +113,8 @@ def enseignants(request):
     return render(request,'enseignants.html',{'data':enseignants})
 
 def modules(request):
-    return render(request,'modules.html')
+    data = models.Module.objects.all()
+    return render(request,'module.html',{'data':data})
 
 def specialite(request):
     return render(request,'specialite.html')

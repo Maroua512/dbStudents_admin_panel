@@ -1,0 +1,89 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+<br><br>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+ 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    /* Personnaliser l'apparence des champs de formulaire */
+    .swal2-input {
+        width: 100%;
+        margin: 8px 0;
+        padding: 12px;
+        box-sizing: border-box;
+    }
+    .swal2-label {
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .swal2-popup {
+        width: 400px;
+    }
+</style>
+</head>
+<body>
+
+<div class="main">
+   
+  <div class="details">
+    <div class="recentOrders">
+      <div class="cardHeader">
+        <div class="refresh">
+          <h2>Modules</h2>
+          <button  class="update-button" id="btnMiseAJour"> Envoyer  mise  a jour</button>
+        </div>
+        <ion-icon name="add-outline" id="addBtn"></ion-icon>
+      </div>
+
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+        </tr>
+        </thead>
+
+        <tbody>
+          {% for x in data %}
+          <tr data-module-id="{{ x.0 }}">
+              <td>{{ x.id_module }}</td>
+              <td>{{ x.code }}</td>
+              <td>{{ x.nom }}</td>
+              <td>
+                <button class="updateButton" id="updateButton">
+                  <div class="img-box"><ion-icon name="create-outline"></ion-icon></div>
+                </button>
+              </td>
+              <td>
+                <button class="delete-button" id="deleteButton">
+                  <div class="img-box"><ion-icon name="trash-outline"></ion-icon></div>
+                </button>
+              </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!--Js-->
+    
+    </div>
+  </div>
+</div>
+<script src ="{% static 'js/alert.js' %}"></script>
+</body>
+</html>
+
+<br><br><br><br><br><br><br>
+{% endblock content %}

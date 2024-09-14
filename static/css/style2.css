@@ -1,0 +1,73 @@
+.delete-button {
+    background-color: #841810;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+
+  .delete-button i {
+    margin-right: 8px;
+  }
+  .updateButton {
+    background-color: #10845f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+  .img-box {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .update-button {
+  background-color: #2b395b; /* Couleur de fond */
+  color: #fff; /* Couleur du texte */
+ border: none; /* Suppression des bordures */
+  padding: 10px 20px; /* Espacement interne */
+ font-size: 16px; /* Taille de la police */
+ border-radius: 5px; /* Bordure arrondie */
+  cursor: pointer; /* Curseur au survol */
+}
+/* Effet au survol */
+.update-button:hover {
+background-color: #0056b3; /* Changement de couleur au survol */
+}
+  .tuple {
+    cursor: pointer;
+  }
+#addBtn{
+  width: 50px;
+  height: 50px;
+  margin-right: 100px;
+  margin-top: 10px;
+  color: #999;
+}
+#addBtn:hover{
+  color: #2b395b;
+  cursor: pointer;
+}
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .rotate-refresh {
+    animation: rotate 2s linear infinite;
+  }
