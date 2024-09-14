@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scolarite</title>
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+  <script src="{% static 'js/main.js' %}"></script>
+  <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+
+  <style>
+    .notification-badge {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+         background-color: red;
+         color: white;
+         border-radius: 50%;
+         height: 25px;
+         width: 25px;
+    font-size: 12px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;/* Hidden by default */
+}
+  .icona{
+    display: flex;
+    padding: 20px;
+    justify-items: center;
+    align-items: center;
+  }
+  .st{
+    background-color: bisque;
+    display:inline-block;
+    align-items: center;
+  }
+  .sta{
+    margin-left: 15px;
+    color: white;
+    font-size: large;
+    font-weight: 500;
+ 
+  }
+  </style>
+</head>
+
+<body>
+  
+  <!-- =============== Navigation ================ -->
+  <div class="container">
+    <div class="navigation">
+        <ul>
+            <li>
+                    <div class="icona">
+                        <div class="user"> <img src="{% static 'image/login.jpg' %}" alt=""></div>
+                        <div class="sta" >Scolarite</div>
+                    </div>
+                
+            </li>
+
+            <li>
+                <a href="dashabord">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/users">
+                    <span class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </span>
+                    <span class="title">Utilisateurs</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/etudiants">
+                    <span class="icon" style="position: relative;">
+                        <ion-icon name="notifications-outline" id="notification"></ion-icon>
+                        <span  id="notificationCount" class="notification-badge"></span>
+                    </span>
+                    <span class="title">Gestion Etudiants</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/enseignants">
+                    <span class="icon">
+                        <ion-icon name="chatbubble-outline"></ion-icon>
+                    </span>
+                    <span class="title">Gestion Enseignants</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/modules">
+                    <span class="icon">
+                        <ion-icon name="help-outline"></ion-icon>
+                    </span>
+                    <span class="title">Gestion Modules </span>
+                </a>
+            </li>
+            <li>
+                <a href="/specialite">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Gestion Specialite</span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ========================= Main ==================== -->
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+
+            <div class="user">
+                <img src="{% static 'images/sd.jpg' %}" alt="">
+            </div>
+        </div>
+
+        <!-- ======================= Cards ================== -->
+        <div class="cardBox">
+            <div class="card">
+                <div>
+                    <div class="numbers">20</div>
+                    <div class="cardName">Utilisateurs</div>
+                </div>
+
+                <div class="iconBx">
+                    <ion-icon name="people-outline"></ion-icon>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="numbers">15</div>
+                    <div class="cardName">Demandes</div>
+                </div>
+
+                <div class="iconBx">
+                    <ion-icon name="notifications-outline"></ion-icon>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="numbers">28</div>
+                    <div class="cardName">Commentaires</div>
+                </div>
+
+                <div class="iconBx">
+                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="numbers">5</div>
+                    <div class="cardName">Assistance</div>
+                </div>
+
+                <div class="iconBx">
+                    <ion-icon name="help-outline"></ion-icon>
+                </div>
+            </div>
+        </div>
+        <!-- ================ Order Details List ================= -->
+        
+                <div class="charts">
+                    
+                    <div class="chart">
+                        <h2>Statistique</h2>
+                        <div>
+                            <canvas id="doughnut"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <script>var ctx2 = document.getElementById('doughnut').getContext('2d');
+                var myChart2 = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Utilisateurs', 'Demandes Creation Compte', 'Commentaires', 'Assistance'],
+                        datasets: [{
+                            label: 'Pourcentage Utilisation de la plateforme',
+                            data: [20, 15, 28, 5],
+                            backgroundColor: [
+                                'rgba(41, 155, 99, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(120, 46, 139, 1)'
+                            ],
+                            borderColor: [
+                                'rgba(41, 155, 99, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(120, 46, 139, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false // Permet au graphique de remplir le conteneur
+                    }
+                });</script>
+            <!-- ================= New Customers ================ -->
+       
+    </div>
+</div>
+
+
+    <br><br>
+
+    <!-- content start-->
+    {% block content %}
+
+   {% endblock content %}
+    <!-- content end-->
+
+
+    <br><br><br><br>
+
+
+  
+ <!-- ====== ionicons ======= -->
+ <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+ <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+ 
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/count_unread_notifications/')
+            .then(response => response.json())
+            .then(data => {
+                const unreadCount = data.unread_count;
+                const notificationSpan = document.getElementById('notificationCount');
+
+                // Mettre à jour le contenu du span avec le nombre de notifications non lues
+                notificationSpan.textContent = unreadCount;
+            })
+            .catch(error => console.error('Error fetching unread notifications count:', error));
+    });
+</script>
+ 
+</body>
+
+</html>

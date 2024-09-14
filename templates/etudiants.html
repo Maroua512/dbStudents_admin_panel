@@ -1,0 +1,267 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+<br><br>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    .delete-button {
+      background-color: #841810;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+
+    .delete-button i {
+      margin-right: 8px;
+    }
+
+    .img-box {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .update-button {
+    background-color: #2b395b; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+   border: none; /* Suppression des bordures */
+    padding: 10px 20px; /* Espacement interne */
+   font-size: 16px; /* Taille de la police */
+   border-radius: 5px; /* Bordure arrondie */
+    cursor: pointer; /* Curseur au survol */
+}
+/* Effet au survol */
+.update-button:hover {
+  background-color: #0056b3; /* Changement de couleur au survol */
+}
+    .tuple {
+      cursor: pointer;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .rotate-refresh {
+      animation: rotate 2s linear infinite;
+    }
+  </style>
+</head>
+<body>
+
+<div class="main">
+    <div class="cardBox">
+        <div class="card">
+            <div><a href="/admin-add-equipement">
+                <div class="numbers">Ajouter Utilisateur</div>
+                <div class="iconBx" id="refreshIcon">
+                  <ion-icon name="person-add-outline"></ion-icon>
+              </div>
+            </a>
+            </div>
+    
+           
+        </div>
+    
+        <div class="card">
+            <div><a href="/admin-update-secretaire">
+                <div class="numbers">Modifier Utilisateur</div>
+                <div class="iconBx">
+                  <ion-icon name="create-outline"></ion-icon>
+              </div>
+              </a>
+            </div>
+    
+           
+        </div>
+    
+        <div class="card">
+            <div><a  href="/admin-approve-secretaire">
+                <div class="numbers">Supprimer Utilisateur</div>
+                <div class="iconBx">
+                  <ion-icon name="trash-outline"></ion-icon>
+              </div>
+            </a>
+            </div>
+    
+            
+        </div>
+    </div>
+  <div class="details">
+    <div class="recentOrders">
+      <div class="cardHeader">
+        <div class="refresh">
+          <h2>Etudiants</h2>
+          <button  class="update-button" id="btnMiseAJour"> Envoyer  mise  a jour</button>
+        </div>
+      </div>
+
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Matricule</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de naissance</th>
+            <th>Email</th>
+            <th>TP</th>
+            <th>TD</th>
+            <th>Section</th>
+            <th>Niveau</th>
+            <th>Spécialité</th>
+            <th>Rôle</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+          {% for etudiant in data %}
+          <tr data-user-id="{{ etudiant.0 }}">
+              <td>{{ etudiant.0 }}</td>
+              <td>{{ etudiant.1 }}</td>
+              <td>{{ etudiant.2 }}</td>
+              <td>{{ etudiant.3 }}</td>
+              <td>{{ etudiant.4 }}</td>
+              <td>{{ etudiant.5 }}</td>
+              <td>{{ etudiant.6 }}</td>
+              <td>{{ etudiant.7 }}</td>
+              <td>{{ etudiant.8 }}</td>
+              <td>{{ etudiant.9 }}</td>
+              <td>{{ etudiant.10 }}</td>
+              <td>
+                <button class="delete-button" id="deleteButton">
+                  <div class="img-box"><ion-icon name="trash-outline"></ion-icon></div>
+                </button>
+              </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!--Js-->
+      <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const userId = this.closest('tr').dataset.userId;
+            deleteUser(userId);
+        });
+    });
+});
+
+
+async function deleteUser(userId) {
+ 
+    Swal.fire({
+        title: 'Confirmation',
+        text: 'Êtes-vous sûr de vouloir supprimer cet utilisateur ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Oui, supprimer',
+        cancelButtonText: 'Annuler'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+         
+            try {
+                const response = await axios.delete(`/delete_user/${userId}`);
+                if (response.status === 200) {
+                    const rowToRemove = document.querySelector(`#dataTable tbody tr[data-user-id="${userId}"]`);
+                    if (rowToRemove) {
+                        rowToRemove.remove();
+                    }
+                    Swal.fire('Supprimé !', 'L\'utilisateur a été supprimé.', 'success');
+                } else {
+                    throw new Error('Erreur lors de la suppression');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la suppression de l\'utilisateur :', error);
+                Swal.fire('Erreur', 'Une erreur s\'est produite lors de la suppression de l\'utilisateur.', 'error');
+            }
+        }
+    });
+}
+    </script>
+   <script>
+   document.getElementById("btnMiseAJour").addEventListener("click", function() {
+    Swal.fire({
+          title: 'Mise à jour',
+          text: 'Entrez le contenu de la mise à jour :',
+          input: 'text',
+          inputPlaceholder: 'Votre mise à jour ici...',
+          showCancelButton: true,
+          confirmButtonText: 'Envoyer',
+          cancelButtonText: 'Annuler'
+      }).then((result) => {
+        console.log("Vrai"); 
+          if (result.isConfirmed) {
+              const updateContent = result.value;
+              if (updateContent) {
+                console.log(updateContent)
+                  // Envoyer une requête POST à Django
+                  axios.post('/update/',new URLSearchParams({
+        'content': updateContent
+    }))
+                  .then((response) => {
+                      if (response.data.status === 'success') {
+                        Swal.fire(
+                            'Envoyé!',
+                            'La mise à jour a été ajoutée avec succès.',
+                            'success'
+                      );
+                      } else {
+                          Swal.fire(
+                              'Erreur',
+                              response.data.message,
+                              'error'
+                          );
+                      }
+                  })
+                  .catch((error) => {
+                      Swal.fire(
+                          'Erreur',
+                          'Une erreur s\'est produite lors de l\'envoi de la mise à jour.',
+                          'error'
+                      );
+                      console.error("Erreur lors de l'envoi de la mise à jour: ", error);
+                  });
+              } else {
+                  Swal.fire(
+                      'Erreur',
+                      'Le champ de mise à jour ne peut pas être vide.',
+                      'error'
+                  );
+              }
+          }
+      });
+  });
+   </script>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+<br><br><br><br><br><br><br>
+{% endblock content %}

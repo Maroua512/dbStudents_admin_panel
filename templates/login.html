@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SchoolLab</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-content">
+                <h1>SCHOOLAB</h1>
+                <h2>Digitalization school for a better future</h2>
+                <p>Welcome Back. Please login to your account.</p>
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" placeholder="Username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="options">
+                        <label>
+                            <input type="checkbox" name="remember"> Remember me
+                        </label>
+                        <a href="#">Forget password?</a>
+                    </div>
+                    <button type="submit" class="btn-login">Log in</button>
+                </form>
+            
+                <p class="signup-link">Don't have an account? <a href="/register">Create your account</a></p>
+            </div>
+        </div>
+        <div class="login-image">
+            <img src="{% static 'image/login.jpg' %}" alt="Login Illustration">
+        </div>
+    </div>
+</body>
+</html>
