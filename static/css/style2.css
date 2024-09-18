@@ -69,5 +69,34 @@ background-color: #0056b3; /* Changement de couleur au survol */
   }
 
   .rotate-refresh {
-    animation: rotate 2s linear infinite;
+    animation: rotate 4s linear infinite;
   }
+   /* Personnaliser l'apparence des champs de formulaire */
+   .swal2-input {
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px;
+    box-sizing: border-box;
+}
+.swal2-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.swal2-popup {
+    width: 400px;
+}
+#refreshIcon{
+  width: 40px;
+  height: 40px;
+  position: relative;
+  padding: 5px 10px;
+  color:#999;
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#refreshIcon:hover{
+  color: #2b395b;
+}

@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-bth$hlm=by=y#few&mijgsfz3hh8jgm4$(y7#ig@*tkid#qot7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1', 'localhost', '10.0.2.2']
+
+CORS_ALLOWED_ORIGINS = [
+    "http://10.0.2.2:8002",  # Pour l'émulateur Android
+]
 
 
 # Application definition
@@ -39,9 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'panel',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

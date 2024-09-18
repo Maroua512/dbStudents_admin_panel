@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from .serializers import UtilisateurSerializer
 from . import models
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 class UtilisateurViewSet(viewsets.ModelViewSet):
     queryset = models.Utilisateur.objects.all()
@@ -118,6 +120,25 @@ def modules(request):
 
 def specialite(request):
     return render(request,'specialite.html')
+
+@csrf_exempt
+def verify_user(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = models.Utilisateur.objects.get(email=email)
+            data = {
+                'id': user.id,
+                'nom': user.last_name,
+                'prenom': user.first_name,
+                'email': user.email,
+                'type_user': user.type_user,
+                'user_role': user.user_role,
+            }
+            return JsonResponse({'status': 'success', 'user': data}, status=200)
+        except models.Utilisateur.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User does not exist'}, status=404)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
 def login_view(request):
     if request.method == 'POST':

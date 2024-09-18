@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 document.addEventListener('DOMContentLoaded', function() {
-    const deleteButtons = document.querySelectorAll('.addBtn');
+    const deleteButtons = document.querySelectorAll('#addBtn');
     deleteButtons.forEach(button => {
         button.addEventListener('click', function() {
            // const moduleID = this.closest('tr').dataset.moduleID;

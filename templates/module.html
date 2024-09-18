@@ -12,24 +12,6 @@
  
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    /* Personnaliser l'apparence des champs de formulaire */
-    .swal2-input {
-        width: 100%;
-        margin: 8px 0;
-        padding: 12px;
-        box-sizing: border-box;
-    }
-    .swal2-label {
-        display: block;
-        text-align: left;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    .swal2-popup {
-        width: 400px;
-    }
-</style>
 </head>
 <body>
 
@@ -40,7 +22,7 @@
       <div class="cardHeader">
         <div class="refresh">
           <h2>Modules</h2>
-          <button  class="update-button" id="btnMiseAJour"> Envoyer  mise  a jour</button>
+          <ion-icon name="refresh-outline" id="refreshIcon"></ion-icon>
         </div>
         <ion-icon name="add-outline" id="addBtn"></ion-icon>
       </div>
